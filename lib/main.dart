@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       home: SplashScreen(),
-      title: "Suraksha Sanket",
+      title: "HELP",
     ),
     );
   }

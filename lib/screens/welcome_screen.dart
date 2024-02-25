@@ -32,7 +32,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                 const SizedBox(height: 20),
                 const Text(
-                  "Suraksha Sanket",
+                  "HELP",
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -40,9 +40,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  "Safety ki Pukar, Instant Help ki Raahat",
+                  "Capture and Report Emergencies with a Click !",
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 13,
                     color: Colors.black38,
                     fontWeight: FontWeight.bold,
                   ),

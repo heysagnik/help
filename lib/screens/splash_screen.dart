@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: const Color(0xffea294f),
+        color: Colors.redAccent,
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 35),
@@ -79,15 +79,15 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "Suraksha Sanket",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  "HELP",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.white,),
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  "Safety ki Pukar, Instant Help ki Raahat",
+                  "Emergency Alert System!",
                   style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black38,
+                    fontSize: 15,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
