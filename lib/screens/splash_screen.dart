@@ -48,20 +48,20 @@ class _SplashScreenState extends State<SplashScreen> {
       }
 
       Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-          ap.isSignedIn ? const HomeScreen() : const WelcomeScreen(),
-        ),
-      );
-    }
+   context,
+     MaterialPageRoute(
+       builder: (context) =>
+      ap.isSignedIn ? const HomeScreen() : const WelcomeScreen(),
+     ),
+  );
   }
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.red[50],
+        color: const Color(0xffea294f),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 35),

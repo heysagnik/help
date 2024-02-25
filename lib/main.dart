@@ -1,10 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:help/provider/auth_provider.dart';
-import 'package:help/screens/otp_screen.dart';
 import 'package:help/screens/register_screen.dart';
 import 'package:help/screens/splash_screen.dart';
-import 'package:help/screens/user_information_screen.dart';
+import 'package:help/widgets/camera.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
