@@ -1,15 +1,3 @@
-buildscript {
-    ext.kotlin_version = '1.9.10' // Define the Kotlin version here
-
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        // Include the Kotlin Gradle plugin with the specified version
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
 
 allprojects {
     repositories {

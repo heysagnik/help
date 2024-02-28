@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:math';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:help/provider/auth_provider.dart';
@@ -39,27 +39,20 @@ class _HomeScreenState extends State<HomeScreen> {
     final file = File(filePath);
     return FileImage(file);
   }
+  Future<Position> getCurrentLocation() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.deniedForever) {
+        // Handle permanently denied permission
+        return Future.error('Location permission denied forever');
+      }
+    }
 
-  double generateRandomLatitude() {
-    // Minimum and maximum latitude values for India (approximate)
-    final minLat = 6.7404;
-    final maxLat = 35.4238;
-    return minLat + (maxLat - minLat) * Random().nextDouble();
+    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   }
 
-  double generateRandomLongitude() {
-    // Minimum and maximum longitude values for India (approximate)
-    final minLon = 68.1762;
-    final maxLon = 97.2470;
-    return minLon + (maxLon - minLon) * Random().nextDouble();
-  }
 
-  Map<String, dynamic> generateRandomCoordinates() {
-    return {
-      'latitude': generateRandomLatitude(),
-      'longitude': generateRandomLongitude(),
-    };
-  }
   @override
   Widget build(BuildContext context) {
     final ap = Provider.of<AuthProvider>(context, listen: false);
@@ -135,6 +128,10 @@ class _HomeScreenState extends State<HomeScreen> {
         if (pickedFile != null) {
           var image = File(pickedFile.path);
           try {
+            // Get current location
+            final position = await getCurrentLocation();
+            final latitude = position.latitude;
+            final longitude = position.longitude;
             // Prepare accident data
             final data = {
               'image': image, // Placeholder for image URL
@@ -142,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   .userModel
                   .phoneNumber, // Assuming phone number is available
               'timeUploaded': DateTime.now(),
-              'coordinates': generateRandomCoordinates(), // Add simulated coordinates
+              'coordinates': GeoPoint(latitude, longitude),// Add  coordinates
             };
 
 
@@ -166,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               if (snapshot.hasData) {
                                 return Image(image: snapshot.data!);
                               } else if (snapshot.hasError) {
-                                return Text('Error loading image preview');
+                                return const Text('Error loading image preview');
                               } else {
                                 return const CircularProgressIndicator();
                               }
@@ -175,12 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           'Phone number: ${Provider.of<AuthProvider>(context, listen: false).userModel.phoneNumber}\n',
                         ),
-                        Text(
-                            'Latitude: 28.5220332\n'
-                            'Longitude: 77.2552968\n',
-                          //'Latitude: ${generateRandomLatitude()}\n'
-                              //'Longitude: ${generateRandomLongitude()}\n',
-                        ),
+                        Text('Coordinates: ${GeoPoint(latitude, longitude)}'),
                       ],
                     ),
                   ),
