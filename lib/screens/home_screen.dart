@@ -155,13 +155,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         const Text(
                           'Are you sure you want to upload the following data?\n\n',
+                          textAlign: TextAlign.left, // Ensure phone number is left-aligned
                         ),
                         if (pickedFile != null)
                           FutureBuilder<ImageProvider>(
                             future: getPreviewImage(pickedFile.path),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                return Image(image: snapshot.data!);
+                                return ClipRRect(  // Add ClipRRect for rounded corners
+                                  borderRadius: BorderRadius.circular(10.0),  // Set border radius
+                                  child: AspectRatio(
+                                    aspectRatio: 3 / 4,  // Set aspect ratio to 3:4
+                                    child: Image(
+                                      image: snapshot.data!,
+                                      fit: BoxFit.cover,  // Adjust fit if needed
+                                    ),
+                                  ),
+                                );
                               } else if (snapshot.hasError) {
                                 return const Text('Error loading image preview');
                               } else {
@@ -170,13 +180,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ),
                         Text(
-                          'Phone number: ${Provider.of<AuthProvider>(context, listen: false).userModel.phoneNumber}\n',
+                          '\n Phone number: ${Provider.of<AuthProvider>(context, listen: false).userModel.phoneNumber}           \n',
+                          textAlign: TextAlign.left, // Maintain left alignment
                         ),
-                        Text('Coordinates: ${GeoPoint(latitude, longitude)}'),
+                        Text('Coordinates: $latitude, $longitude'),
                       ],
                     ),
                   ),
-                  actions: [
+
+                actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(context, false),
                       child: const Text('Cancel'),
