@@ -25,6 +25,16 @@ dependencies:
   pinput: ^2.2.16
   image_picker: ^0.8.6
   geolocator: ^11.0.0
+  avatar_glow: ^3.0.1
+  page_transition: ^2.1.0
+  flutter_launcher_icons: ^0.13.1
+  slide_to_act: ^2.0.2
+  geocode: ^1.0.3
+  geocoding: ^2.2.0
+  permission_handler: ^11.3.0
+
+
+
 
 
 

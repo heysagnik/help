@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help/provider/auth_provider.dart';
 import 'package:help/screens/home_screen.dart';
-import 'package:help/screens/profile_screen.dart';
 import 'package:help/screens/user_information_screen.dart';
 import 'package:help/utils/utils.dart';
 import 'package:help/widgets/custom_button.dart';

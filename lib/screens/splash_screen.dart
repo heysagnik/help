@@ -6,6 +6,7 @@ import 'package:help/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:help/screens/welcome_screen.dart';
 
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -40,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigateAfterDelay() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 2));
 
     if (mounted) {
       if (ap.isSignedIn) {
@@ -61,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.redAccent,
+        color: Colors.red[50],
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 35),
@@ -80,14 +81,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 const SizedBox(height: 20),
                 const Text(
                   "HELP",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.white,),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 const Text(
                   "Emergency Alert System!",
                   style: TextStyle(
                     fontSize: 15,
-                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

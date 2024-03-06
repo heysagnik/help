@@ -79,7 +79,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                     children: [
                       // name field
                       textFeld(
-                        hintText: "Sagnik Sahoo",
+                        hintText: "Alex",
                         icon: Icons.account_circle,
                         inputType: TextInputType.name,
                         maxLines: 1,
