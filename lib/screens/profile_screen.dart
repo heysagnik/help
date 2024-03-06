@@ -8,6 +8,8 @@ import 'package:help/screens/welcome_screen.dart';
 import 'package:help/widgets/custom_button.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:updater/updater.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -17,6 +19,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     final ap = Provider.of<AuthProvider>(context, listen: false);
@@ -283,3 +287,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+

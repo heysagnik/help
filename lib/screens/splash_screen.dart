@@ -80,15 +80,16 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "HELP",
+                  "Suraksha Sanket",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  "Emergency Alert System!",
+                  "Safety ki Pukar, Instant Help ki Rahat ",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
+                    color: Colors.black45,
                   ),
                 ),
               ],

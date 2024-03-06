@@ -32,6 +32,7 @@ dependencies:
   geocode: ^1.0.3
   geocoding: ^2.2.0
   permission_handler: ^11.3.0
+  updater: ^0.2.3
 
 
 
