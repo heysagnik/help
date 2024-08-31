@@ -1,12 +1,10 @@
 import 'dart:io';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:help/provider/auth_provider.dart';
 import 'package:help/screens/profile_screen.dart';
 import 'package:help/screens/rescue_screen.dart';
-import 'package:help/widgets/custom_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/services.dart';
@@ -29,22 +27,26 @@ class _HomeScreenState extends State<HomeScreen> {
       context, // Pass current context from the widget
       PageTransition(
         type: PageTransitionType.fade, // Example transition type
-        duration: const Duration(milliseconds: 200), // Adjust duration as needed
+        duration:
+            const Duration(milliseconds: 200), // Adjust duration as needed
         child: const RescueScreen(), // Replace with your RescueScreen widget
       ),
     );
   }
+
   void navigateToProfileScreen() {
     HapticFeedback.mediumImpact();
     Navigator.push(
       context, // Pass current context from the widget
       PageTransition(
         type: PageTransitionType.fade, // Example transition type
-        duration: const Duration(milliseconds: 200), // Adjust duration as needed
+        duration:
+            const Duration(milliseconds: 200), // Adjust duration as needed
         child: const ProfileScreen(), // Replace with your RescueScreen widget
       ),
     );
   }
+
   bool isFinished = false;
   bool _animate = true;
   final _picker = ImagePicker();
@@ -123,12 +125,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _getAddressFromLatLng(Position position) async {
     await placemarkFromCoordinates(
-        _currentPosition!.latitude, _currentPosition!.longitude)
+            _currentPosition!.latitude, _currentPosition!.longitude)
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
       setState(() {
-        _currentAddress =
-        '${place.locality},\n ${place.postalCode}';
+        _currentAddress = '${place.locality},\n ${place.postalCode}';
       });
     }).catchError((e) {
       debugPrint(e);
@@ -144,11 +145,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
-
-
-
-
   void _showConfirmationBottomSheet() {
     final ap = Provider.of<AuthProvider>(context, listen: false);
     showModalBottomSheet(
@@ -156,7 +152,8 @@ class _HomeScreenState extends State<HomeScreen> {
       isDismissible: true,
       context: context,
       builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * 0.7, // 70% of screen height
+        height:
+            MediaQuery.of(context).size.height * 0.7, // 70% of screen height
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0), // Rounded corners
@@ -166,186 +163,181 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (_imageFile != null)
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Image.file(File(_imageFile!.path), fit: BoxFit.cover),
-                    ),
-                  ),
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image.file(File(_imageFile!.path), fit: BoxFit.cover),
+                ),
+              ),
             const SizedBox(height: 10.0),
             if (_currentPosition != null)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(Icons.location_on_outlined),
-                  const SizedBox(width: 10,),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   Text(
                     "${_currentPosition!.latitude.toStringAsFixed(3)},${_currentPosition!.longitude.toStringAsFixed(3)}",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-
                 ],
               ),
-
             const SizedBox(height: 10.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                 const Icon(Icons.call_outlined),
-                 Text(ap.userModel.phoneNumber,style: const TextStyle(fontWeight: FontWeight.bold),),
-               ],
+              children: [
+                const Icon(Icons.call_outlined),
+                Text(
+                  ap.userModel.phoneNumber,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-
             Padding(
               padding: const EdgeInsets.all(50.0),
-              child:SlideAction(
+              child: SlideAction(
                 textColor: Colors.red,
                 text: 'Send',
                 borderRadius: 50,
                 elevation: 0,
                 innerColor: Colors.red[600],
                 outerColor: Colors.red[100],
-                onSubmit: (){
+                onSubmit: () {
                   Navigator.push(
                     context, // Pass current context from the widget
                     PageTransition(
                       type: PageTransitionType.fade, // Example transition type
-                      duration: const Duration(milliseconds: 200), // Adjust duration as needed
-                      child: const RescueScreen(), // Replace with your RescueScreen widget
+                      duration: const Duration(
+                          milliseconds: 200), // Adjust duration as needed
+                      child:
+                          const RescueScreen(), // Replace with your RescueScreen widget
                     ),
                   );
                   return null;
                 },
               ),
             )
-
           ],
         ),
       ),
     );
   }
 
-
-
-
   @override
-    Widget build(BuildContext context) {
-      final ap = Provider.of<AuthProvider>(context, listen: false);
-      return Scaffold(
-
-        appBar: AppBar(
-          leading: SizedBox(
-            child: Row(
+  Widget build(BuildContext context) {
+    final ap = Provider.of<AuthProvider>(context, listen: false);
+    return Scaffold(
+      appBar: AppBar(
+        leading: SizedBox(
+          child: Row(
+            children: [
+              IconButton(
+                  onPressed: _getCurrentPosition,
+                  icon: const Icon(Icons.my_location_outlined)),
+              Text(' ${_currentAddress ?? ""}')
+            ],
+          ),
+        ),
+        leadingWidth: 200,
+        actions: [
+          IconButton(
+            onPressed: () => navigateToProfileScreen(),
+            icon: CircleAvatar(
+              backgroundColor: Colors.redAccent.shade100,
+              backgroundImage: NetworkImage(ap.userModel.profilePic),
+              radius: 20,
+              child: ap.userModel.profilePic.isEmpty
+                  ? const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    )
+                  : null,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          )
+        ],
+      ),
+      bottomNavigationBar: NavigationBar(
+        backgroundColor: Colors.grey.shade50,
+        indicatorColor: Colors.red.shade400,
+        animationDuration: const Duration(milliseconds: 100),
+        destinations: const [
+          NavigationDestination(
+              icon: Icon(
+                Icons.emergency,
+              ),
+              label: 'Emergency'),
+          NavigationDestination(icon: Icon(Icons.support), label: 'Rescue'),
+        ],
+        selectedIndex: currentPageIndex,
+        onDestinationSelected: (index) {
+          if (index == 1) {
+            // Check if index corresponds to "Rescue" button (index 1)
+            navigateToRescueScreen();
+          } else {
+            // Handle other actions for other button selections (optional)
+          }
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+      ),
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 35),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(onPressed: _getCurrentPosition, icon: const Icon(Icons.my_location_outlined))
-                ,
-                Text(' ${_currentAddress ?? ""}')
+                const SizedBox(height: 20),
+                AvatarGlow(
+                  animate: _animate,
+                  glowColor: Colors.red,
+                  glowRadiusFactor: 0.5,
+                  child: Material(
+                      elevation: 8.0,
+                      shape: const CircleBorder(),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 200,
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              await _captureImage();
+                              await _getCurrentPosition();
+                              if (_imageFile != null &&
+                                  _currentPosition != null) {
+                                _showConfirmationBottomSheet();
+                              }
+                            },
+                            style: ButtonStyle(
+                              foregroundColor:
+                                  WidgetStateProperty.all<Color>(Colors.white),
+                              backgroundColor: WidgetStateProperty.all<Color>(
+                                  Colors.red.shade500),
+                              shape: WidgetStateProperty.all<CircleBorder>(
+                                const CircleBorder(),
+                              ),
+                            ),
+                            child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.sos,
+                                  size: 100,
+                                ),
+                              ],
+                            )),
+                      )),
+                ),
               ],
             ),
           ),
-          leadingWidth: 200,
-          actions: [
-            IconButton(
-              onPressed:() => navigateToProfileScreen(),
-
-              icon: CircleAvatar(
-                backgroundColor: Colors.redAccent.shade100,
-                backgroundImage: NetworkImage(ap.userModel.profilePic),
-                radius: 20,
-                child: ap.userModel.profilePic.isEmpty
-                    ? const Icon(
-                  Icons.person,
-                  color: Colors.white,
-                )
-                    : null,
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            )
-          ],
         ),
-        bottomNavigationBar: NavigationBar(
-          backgroundColor: Colors.grey.shade50,
-          indicatorColor: Colors.red.shade400,
-          animationDuration: const Duration(milliseconds: 100),
-
-          destinations: const [
-            NavigationDestination(
-                icon: Icon(Icons.emergency,), label: 'Emergency'),
-            NavigationDestination(icon: Icon(Icons.support), label: 'Rescue'),
-          ],
-          selectedIndex: currentPageIndex,
-          onDestinationSelected: (index) {
-            if (index == 1) { // Check if index corresponds to "Rescue" button (index 1)
-              navigateToRescueScreen();
-            } else {
-              // Handle other actions for other button selections (optional)
-            }
-            setState(() {
-              currentPageIndex = index;
-            });
-          },
-        ),
-        body: SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 35),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 20),
-                  AvatarGlow(
-                    animate: _animate,
-                    glowColor: Colors.red,
-                    glowRadiusFactor: 0.5
-                    ,
-                    child: Material(
-                        elevation: 8.0,
-                        shape: const CircleBorder(),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 200,
-
-                          child: ElevatedButton(
-                              onPressed: () async {
-                                await _captureImage();
-                                await _getCurrentPosition();
-                                if (_imageFile != null && _currentPosition != null) {
-                                  _showConfirmationBottomSheet();
-                                }
-                              },
-                              style: ButtonStyle(
-                                foregroundColor: MaterialStateProperty.all<
-                                    Color>(Colors.white),
-                                backgroundColor: MaterialStateProperty.all<
-                                    Color>(Colors.red.shade500),
-                                shape: MaterialStateProperty.all<CircleBorder>(
-                                  const CircleBorder(
-
-                                  ),
-                                ),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.sos, size: 100,),
-
-                                ],
-                              )
-
-                          ),
-                        )
-                    ),
-                  ),
-
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    }
+      ),
+    );
   }
-
-
+}

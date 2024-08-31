@@ -1,15 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:help/provider/auth_provider.dart';
 import 'package:help/screens/permission_screen.dart';
 import 'package:help/screens/user_information_screen.dart';
 import 'package:help/screens/welcome_screen.dart';
-import 'package:help/widgets/custom_button.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:updater/updater.dart';
-
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -19,21 +15,18 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     final ap = Provider.of<AuthProvider>(context, listen: false);
 
     return Scaffold(
-
       appBar: AppBar(
-
-        title: const Text("Settings",),
+        title: const Text(
+          "Settings",
+        ),
       ),
       body: Center(
-
-          child: Column(
+        child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Card(
@@ -42,12 +35,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              color: Colors.green[50], // Use white background for better contrast
+              color:
+                  Colors.green[50], // Use white background for better contrast
               child: Padding(
-                padding: const EdgeInsets.all(16.0), // Add padding for better spacing
+                padding: const EdgeInsets.all(
+                    16.0), // Add padding for better spacing
                 child: Column(
                   children: [
-                    Row( // First row with logo, app name, and edit icon
+                    Row(
+                      // First row with logo, app name, and edit icon
                       children: [
                         Image.asset(
                           "assets/logo.jpg",
@@ -56,7 +52,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         const SizedBox(width: 10.0),
                         const Text(
                           'SURAKSHA ID',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         const Spacer(),
                         IconButton(
@@ -65,9 +62,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Navigator.push(
                               context, // Pass current context from the widget
                               PageTransition(
-                                type: PageTransitionType.fade, // Example transition type
-                                duration: const Duration(milliseconds: 200), // Adjust duration as needed
-                                child: const UserInfromationScreen(), // Replace with your RescueScreen widget
+                                type: PageTransitionType
+                                    .fade, // Example transition type
+                                duration: const Duration(
+                                    milliseconds:
+                                        200), // Adjust duration as needed
+                                child:
+                                    const UserInfromationScreen(), // Replace with your RescueScreen widget
                               ),
                             );
                           },
@@ -76,31 +77,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                     const SizedBox(height: 10.0), // Add spacing between rows
-                    Row( // Second row with profile picture, user information
+                    Row(
+                      // Second row with profile picture, user information
                       children: [
                         CircleAvatar(
                           backgroundColor: Colors.redAccent.shade100,
-                          backgroundImage: NetworkImage(ap.userModel.profilePic),
+                          backgroundImage:
+                              NetworkImage(ap.userModel.profilePic),
                           radius: 30,
                         ),
                         const SizedBox(width: 10.0),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start, // Align text left
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start, // Align text left
                           children: [
-                            Row( // Row for "Name:" and name
+                            Row(
+                              // Row for "Name:" and name
                               children: [
-                                const Icon(Icons.badge_outlined,color: Colors.grey,size: 20,),
-                                const SizedBox(width: 5.0), // Add a small space between label and value
+                                const Icon(
+                                  Icons.badge_outlined,
+                                  color: Colors.grey,
+                                  size: 20,
+                                ),
+                                const SizedBox(
+                                    width:
+                                        5.0), // Add a small space between label and value
                                 Text(
                                   ap.userModel.name,
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 5.0), // Add spacing between rows within the Column
-                            Row( // Row for "Phone Number:" and phone number
+                            const SizedBox(
+                                height:
+                                    5.0), // Add spacing between rows within the Column
+                            Row(
+                              // Row for "Phone Number:" and phone number
                               children: [
-                                const Icon(Icons.call_outlined,color: Colors.grey,size: 20,),
+                                const Icon(
+                                  Icons.call_outlined,
+                                  color: Colors.grey,
+                                  size: 20,
+                                ),
                                 const SizedBox(width: 5.0),
                                 Text(
                                   ap.userModel.phoneNumber,
@@ -108,10 +126,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 5.0), // Add spacing between rows within the Column
-                            const Row( // Row for "Blood Type:" and blood type
+                            const SizedBox(
+                                height:
+                                    5.0), // Add spacing between rows within the Column
+                            const Row(
+                              // Row for "Blood Type:" and blood type
                               children: [
-                                Icon(Icons.bloodtype,color: Colors.grey,size: 20,),
+                                Icon(
+                                  Icons.bloodtype,
+                                  color: Colors.grey,
+                                  size: 20,
+                                ),
                                 SizedBox(width: 5.0),
                                 Text(
                                   "B+", // Replace with ap.userModel.bloodType if it's available
@@ -127,15 +152,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-
-
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             InkWell(
-
-              onTap: (){},
+              onTap: () {},
               //borderRadius: BorderRadius.circular(10.0),
               child: const SizedBox(
-                height:50,
+                height: 50,
                 child: Row(
                   children: [
                     SizedBox(width: 20.0),
@@ -147,28 +171,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       'Appearance',
                       style: TextStyle(
                         fontSize: 16.0,
-
                       ),
                     ),
                   ],
                 ),
               ),
-
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             InkWell(
-
-              onTap: (){
+              onTap: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PermissionsScreen(),
-                  )
-                );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PermissionsScreen(),
+                    ));
               },
               //borderRadius: BorderRadius.circular(10.0),
               child: const SizedBox(
-                height:50,
+                height: 50,
                 child: Row(
                   children: [
                     SizedBox(width: 20.0),
@@ -180,20 +202,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       'Permissions',
                       style: TextStyle(
                         fontSize: 16.0,
-
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             InkWell(
-
-              onTap: (){},
+              onTap: () {},
               //borderRadius: BorderRadius.circular(10.0),
               child: const SizedBox(
-                height:50,
+                height: 50,
                 child: Row(
                   children: [
                     SizedBox(width: 20.0),
@@ -205,21 +227,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       'About',
                       style: TextStyle(
                         fontSize: 16.0,
-
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             InkWell(
-
-              onTap: (){},
+              onTap: () {},
               //borderRadius: BorderRadius.circular(10.0),
               child: const SizedBox(
-                height:50,
+                height: 50,
                 child: Row(
                   children: [
                     SizedBox(width: 20.0),
@@ -231,7 +252,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       'Suraksha Sanket',
                       style: TextStyle(
                         fontSize: 16.0,
-
                       ),
                     ),
                     Text(
@@ -246,21 +266,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             InkWell(
-              onTap: (){
-                  ap.userSignOut().then(
-                        (value) => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const WelcomeScreen(),
+              onTap: () {
+                ap.userSignOut().then(
+                      (value) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen(),
+                        ),
                       ),
-                    ),
-                  );
+                    );
               },
               child: SizedBox(
-                height:50,
+                height: 50,
                 child: Row(
                   children: [
                     const SizedBox(width: 20.0),
@@ -273,18 +294,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       'Log Out',
                       style: TextStyle(
                         fontSize: 16.0,
-                        color:Colors.redAccent.shade200,
+                        color: Colors.redAccent.shade200,
                       ),
                     ),
                   ],
                 ),
               ),
-
             )
           ],
         ),
-          ),
+      ),
     );
   }
 }
-

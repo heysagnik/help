@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 class PermissionsScreen extends StatefulWidget {
-  const PermissionsScreen({Key? key}) : super(key: key);
+  const PermissionsScreen({super.key});
 
   @override
   State<PermissionsScreen> createState() => _PermissionsScreenState();
@@ -54,17 +54,21 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
                           children: [
                             const Text(
                               'Location Services:',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w400),
                             ),
                             const SizedBox(width: 5),
                             // Display "Granted" or "Not Granted" based on permission status
                             Text(
-                              _permissionStatus?.toString().split('.').last ?? 'Unknown',
-                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                              _permissionStatus?.toString().split('.').last ??
+                                  'Unknown',
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 5), // Add some spacing between rows
+                        const SizedBox(
+                            height: 5), // Add some spacing between rows
                         const Text(
                           'Give access to the location services\nto make the app work properly',
                           style: TextStyle(fontSize: 14), // Adjust text size
